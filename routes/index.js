@@ -25,13 +25,41 @@ var routerTools = {
 		console.log("开始执行背景截图");
 		var disurl_v = (new Date()).getTime();
 		var sourcebat = chp.execFile("/bin/sh", ['-c', '~/nusers '+disurl+ ' ' +disurl_v], function(error, stdout, stderr){
+			console.log("执行回调");
 			if (error) {
 				console.log("error: "+error.stack);
 				common.send404(req, res, error.stack);
 			} else {
 				console.log("开始启动热点图截图");
 				console.log("stdout: "+stdout);
-				routerTools.execBat2heatmap(req, res, disurl, disurl_v);
+				fs.readFile('/Users/qitmac000455/work/paycenter/heatmap-v-0.1/sourceimg/localhost/dis_'+disurl_v+'.png', 'binary', function(err, file){
+							if (err) {
+								console.log(err);
+								common.send404(req, res, "img is not found");
+							} else {
+								res.writeHead(200, {"Content-Type": 'image/jpeg'});
+								res.write(file, 'binary');
+								res.end();
+							}
+						});
+				// var heatmapbat = chp.execFile("/bin/sh", ['-c', '~/heatmap '+disurl+ ' ' +disurl_v], function(error, stdout, stderr){
+				// 	if (error) {
+				// 		console.log("error: "+error.stack);
+				// 		common.send404(req, res, 'image is not found!');
+				// 	} else {
+				// 		console.log("----------exec done-----------");
+				// 		fs.readFile('/Users/qitmac000455/work/paycenter/heatmap-v-0.1/sourceimg/localhost/dis_'+disurl_v+'.png', 'binary', function(err, file){
+				// 			if (err) {
+				// 				console.log(err);
+				// 				common.send404(req, res, "img is not found");
+				// 			} else {
+				// 				res.writeHead(200, {"Content-Type": 'image/jpeg'});
+				// 				res.write(file, 'binary');
+				// 				res.end();
+				// 			}
+				// 		});
+				// 	}
+				// });
 			}
 		});
 	},
