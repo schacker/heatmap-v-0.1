@@ -20,13 +20,30 @@ var routerTools = {
 		routerTools.execBat(req, res, disurl);
 	},
 	// 执行bat文件
+	// responsesive-tourl.js
 	execBat: function(req, res, disurl) {
+		console.log("开始执行背景截图");
 		var disurl_v = (new Date()).getTime();
 		var sourcebat = chp.execFile("/bin/sh", ['-c', '~/nusers '+disurl+ ' ' +disurl_v], function(error, stdout, stderr){
 			if (error) {
 				console.log("error: "+error.stack);
+				common.send404(req, res, error.stack);
 			} else {
+				console.log("开始启动热点图截图");
 				console.log("stdout: "+stdout);
+				routerTools.execBat2heatmap(req, res, disurl, disurl_v);
+			}
+		});
+	},
+	// 执行生成heatmap bat
+	// responsesive-heatmap.js
+	execBat2heatmap: function(req, res, disurl, disurl_v) {
+		console.log("开始执行热点图截图");
+		var heatmapbat = chp.execFile("/bin/sh", ['-c', '~/heatmap '+disurl+ ' ' +disurl_v], function(error, stdout, stderr){
+			if (error) {
+				console.log("error: "+error.stack);
+				common.send404(req, res, 'image is not found!');
+			} else {
 				console.log("----------exec done-----------");
 				fs.readFile('/Users/qitmac000455/work/paycenter/heatmap-v-0.1/sourceimg/localhost/dis_'+disurl_v+'.png', 'binary', function(err, file){
 					if (err) {
