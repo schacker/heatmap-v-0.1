@@ -16,7 +16,7 @@ function init(){
 }
 init();
 
-page.open("http://localhost/heatmap-v-0.1/capture/html/index.html?url="+urlAddress);
+page.open(urlAddress);
 page.onLoadFinished = function(){
     // 构造文件路径
     var filePath = urlToDir(urlAddress)+"/bg_"+disurl_v+".png";
@@ -26,9 +26,6 @@ page.onLoadFinished = function(){
     // 新开page
     var newpage = new WebPage();
     newpage.viewportSize = {width:375,height:667};
-    setTimeout(function(){
-
-    }, 1000);
     newpage.open("http://localhost/heatmap-v-0.1/capture/html/capture.html?pic="+filePath, function(status){
         if ('success' !== status) {
             console.log("load newpage fail");
