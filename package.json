@@ -1,0 +1,21 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.21.2",
+    "socket.io": "~0.9.6",
+    "mime": "~1.2.7",
+    "mustache": "*",
+    "mysql": "*"
+  },
+  "usemock": false,
+  "use_url_map": false,
+  "mock_folder": "public/javascripts/mock/json",
+  "dbUser": "root",
+  "dbPwd": "root",
+  "dbs": "nodetest"
+}
