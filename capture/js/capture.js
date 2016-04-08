@@ -16,25 +16,24 @@ function addtips(xlimit, ylimit) {
     }
     return tips;
 }
-setTimeout(function(){
-    // 准备背景图片
-    var img = new Image();
-    img.onload = function() {
-        console.log(img.width);
-        canvas.width = img.width || window.innerWidth;
-        canvas.height = img.height || window.innerHeight;
-        drawBGImage(context, img);
-    }
-    var imgurl = getPicurl();
-    img.src = imgurl || "";
-}, 6000);
+// 准备背景图片
+var img = new Image();
+img.onload = function() {
+    console.log(img.width);
+    canvas.width = img.width || window.innerWidth;
+    canvas.height = img.height || window.innerHeight;
+    drawBGImage(context, img);
+}
+var imgurl = getPicurl();
+img.src = imgurl || "";
 // 获取截屏的canvas背景图url
 function getPicurl() {
     var url = window.location.href;
     if (url.indexOf("?pic=") != -1) {
         var imgsrc = url.substring(url.indexOf("?pic=")+5);
         console.log(imgsrc);
-        return imgsrc;
+
+        return "../../"+imgsrc;
     }
     return "";
 }

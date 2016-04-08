@@ -30,53 +30,13 @@ var routerTools = {
 				console.log("error: "+error.stack);
 				common.send404(req, res, error.stack);
 			} else {
-				console.log("开始启动热点图截图");
-				console.log("stdout: "+stdout);
-				fs.readFile('/Users/qitmac000455/work/paycenter/heatmap-v-0.1/sourceimg/localhost/dis_'+disurl_v+'.png', 'binary', function(err, file){
-							if (err) {
-								console.log(err);
-								common.send404(req, res, "img is not found");
-							} else {
-								res.writeHead(200, {"Content-Type": 'image/jpeg'});
-								res.write(file, 'binary');
-								res.end();
-							}
-						});
-				// var heatmapbat = chp.execFile("/bin/sh", ['-c', '~/heatmap '+disurl+ ' ' +disurl_v], function(error, stdout, stderr){
-				// 	if (error) {
-				// 		console.log("error: "+error.stack);
-				// 		common.send404(req, res, 'image is not found!');
-				// 	} else {
-				// 		console.log("----------exec done-----------");
-				// 		fs.readFile('/Users/qitmac000455/work/paycenter/heatmap-v-0.1/sourceimg/localhost/dis_'+disurl_v+'.png', 'binary', function(err, file){
-				// 			if (err) {
-				// 				console.log(err);
-				// 				common.send404(req, res, "img is not found");
-				// 			} else {
-				// 				res.writeHead(200, {"Content-Type": 'image/jpeg'});
-				// 				res.write(file, 'binary');
-				// 				res.end();
-				// 			}
-				// 		});
-				// 	}
-				// });
-			}
-		});
-	},
-	// 执行生成heatmap bat
-	// responsesive-heatmap.js
-	execBat2heatmap: function(req, res, disurl, disurl_v) {
-		console.log("开始执行热点图截图");
-		var heatmapbat = chp.execFile("/bin/sh", ['-c', '~/heatmap '+disurl+ ' ' +disurl_v], function(error, stdout, stderr){
-			if (error) {
-				console.log("error: "+error.stack);
-				common.send404(req, res, 'image is not found!');
-			} else {
-				console.log("----------exec done-----------");
+				console.log("---stdout---: ");
+				console.log(stdout);
+				console.log("shell脚本执行完毕");
 				fs.readFile('/Users/qitmac000455/work/paycenter/heatmap-v-0.1/sourceimg/localhost/dis_'+disurl_v+'.png', 'binary', function(err, file){
 					if (err) {
 						console.log(err);
-						common.send404(req, res, "img is not found");
+						common.send404(req, res, "找不到该图片");
 					} else {
 						res.writeHead(200, {"Content-Type": 'image/jpeg'});
 						res.write(file, 'binary');
