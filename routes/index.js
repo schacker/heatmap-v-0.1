@@ -26,12 +26,13 @@ var routerTools = {
 			if (error) {
 				console.log("error: "+error.stack);
 			} else {
-				console.log("stdout: "+stdout);
-				console.log("----------exec done-----------");
+				console.log("---stdout---: ");
+				console.log(stdout);
+				console.log("shell脚本执行完毕");
 				fs.readFile('/Users/qitmac000455/work/paycenter/heatmap-v-0.1/sourceimg/localhost/dis_'+disurl_v+'.png', 'binary', function(err, file){
 					if (err) {
 						console.log(err);
-						common.send404(req, res, "img is not found");
+						common.send404(req, res, "找不到该图片");
 					} else {
 						res.writeHead(200, {"Content-Type": 'image/jpeg'});
 						res.write(file, 'binary');
