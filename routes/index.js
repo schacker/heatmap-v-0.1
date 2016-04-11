@@ -6,6 +6,7 @@ var mysql = require('mysql'); //数据库驱动
 var url = require('url');
 var querystring = require('querystring');
 var common = require('./common/common.js');
+var _mockserver = require('./mock/mockserver.js');
 var chp = require('child_process');
 var spawn = chp.spawn;
 var execFile = chp.execFile;
@@ -17,7 +18,11 @@ var routerTools = {
 		var originurl = url.parse(req.url);
 		var pathname = originurl.pathname;
 		var disurl = querystring.parse(originurl.query)['url'];
-		routerTools.execBat(req, res, disurl);
+		if (!disurl) {
+			_mockserver.parseRequestUrl(req, res);
+		} else {
+			routerTools.execBat(req, res, disurl);
+		}
 	},
 	// 执行bat文件
 	// responsesive-tourl.js
